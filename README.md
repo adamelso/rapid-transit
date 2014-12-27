@@ -29,11 +29,12 @@ $ git clone git@github.com:adamelso/rapid-transit.git
 $ cd rapid-transit
 $ composer install
 $ bin/console doctrine:mongodb:schema:create
+$ bin/console fos:user:create transitadmin --super-admin # you will be asked to set an email and password
 $ bin/console server run
 
 ```
 
-You can now access the project at `http://127.0.0.1:8000`
+You can now access the project at `http://127.0.0.1:8000` and sign in with the `transitadmin` user you just created.
 
 
 Notes
