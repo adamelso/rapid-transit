@@ -20,16 +20,10 @@ default:
         - Behat\MinkExtension\Context\MinkContext
       filters: { tags: @core }
 
-    localization:
-      contexts:
-        - Behat\MinkExtension\Context\MinkContext
-        - Ntreg\Context\LocalizationContext
-      filters: { tags: @localization }
-
     login:
        contexts:
          - Behat\MinkExtension\Context\MinkContext
-         - Ntreg\Context\LoginContext
+         - Transit\Context\LoginContext
        filters: { tags: @users }
 
 ci:
