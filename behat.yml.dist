@@ -37,5 +37,5 @@ ci:
     Behat\MinkExtension:
       selenium2:
         wd_host: http://127.0.0.2:4444/wd/hub
-      base_url: 'http://test.ntreg.com/app_test.php/'
+      base_url: 'http://dev.rapidtransit.io/app_test.php/'
       default_session: selenium2
