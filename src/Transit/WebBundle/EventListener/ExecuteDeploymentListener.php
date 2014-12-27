@@ -91,8 +91,6 @@ class ExecuteDeploymentListener
 
         $this->logger->info('Cloning project ' . $name);
 
-        $url = 'git@github.com:adamelso/archfizz.git';
-
         $repositoriesDir = implode(DIRECTORY_SEPARATOR, [
             $this->kernelRootDir,
             '..', 'var', 'repositories',
@@ -110,7 +108,7 @@ class ExecuteDeploymentListener
 
         $process = new Process(sprintf(
             'git clone --branch %s --depth 50 %s %s',
-            $deployment->getBranch(), $url, $cloneDir
+            $deployment->getBranch(), $deployment->getProject()->getRepositoryUrl(), $cloneDir
         ));
 
         $process->run();
