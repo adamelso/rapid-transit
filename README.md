@@ -20,10 +20,27 @@ You must also be running Apache / Nginx / PHP-FPM etc, as the user that will hav
 to the SSH deployment keys.
 
 
-Installation
-------------
+Quick Installation
+------------------
 
-You
+```bash
+
+$ git clone git@github.com:adamelso/rapid-transit.git
+$ cd rapid-transit
+$ composer install
+$ bin/console doctrine:mongodb:schema:create
+$ bin/console server run
+
+```
+
+You can now access the project at `http://127.0.0.1:8000`
+
+
+Notes
+-----
+
+ * This project uses the new Symfony 3 directory structure.
+ * This project uses the Sylius Resource Bundle.
 
 
 Roadmap
@@ -42,3 +59,4 @@ Roadmap
  * Use Sass and Compass to generate stylesheets.
  * Use Bower to install Javascript libraries.
  * Write Behat stories first! ;)
+ * Add Vagrant box
