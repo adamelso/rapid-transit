@@ -1,0 +1,20 @@
+{% extends "TransitWebBundle:Home:index.html.twig" %}
+
+{% block content %}
+  <h2>{{ "SSH Key Pairs" }}</h2>
+
+  <a class="button" href="{{ path('transit_ssh_key_pair_create') }}">{{ "Create" }}</a>
+
+  <hr />
+
+  {% if ssh_key_pairs|length %}
+    <dl>
+      {% for pair in ssh_key_pairs %}
+      <dt>{{ pair.id }}</dt>
+      <dd><pre>{{ pair.publicKey }}</pre></dd>
+      {% endfor %}
+    </dl>
+  {% else %}
+    {{ "No SSH Key Pairs have been created." }}
+  {% endif %}
+{% endblock content %}

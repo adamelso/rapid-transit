@@ -1,0 +1,30 @@
+{% extends "TransitWebBundle:Project:index.html.twig" %}
+
+{% block content %}
+
+  <h2>{{ project.name }}</h2>
+
+  <p><pre>{{ "git clone " }}{{ project.repositoryUrl }}</pre></p>
+  <p>{{ "Created by " }}{{ project.owner }}</p>
+
+  <hr />
+
+  <h3>{{ "Deployments" }}</h3>
+
+  {% if project.deployments|length %}
+    <table>
+      {% for deployment in project.deployments %}
+        <tr>
+          <td>{{ deployment.id }}</td>
+          <td>{{ deployment.branch }}</td>
+          <td>{{ deployment.status }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    {{ "No deployments have been created for this project." }}
+  {% endif %}
+
+  <a class="button" href="{{ path('transit_deployment_create', { projectId: project.id }) }}">Deploy</a>
+
+{% endblock content %}

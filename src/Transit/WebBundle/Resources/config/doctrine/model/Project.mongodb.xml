@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                        http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <!-- Cannot use mapped-superclass, Sylius Resource does not convert it into a document, maybe a bug? -->
+    <document name="Transit\WebBundle\Model\Project" collection="TransitProject">
+
+        <field fieldName="id" id="true" />
+        <field fieldName="name" name="name" type="string" />
+        <field fieldName="repositoryUrl" name="repositoryUrl" type="string" />
+        
+        <reference-one field="owner" fieldName="owner" target-document="UserAccount" inversed-by="projects" />
+        <reference-many field="deployments" fieldName="deployments" target-document="Deployment" mapped-by="project" />
+
+    </document>
+</doctrine-mongo-mapping>

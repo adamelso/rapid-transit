@@ -1,0 +1,24 @@
+{% extends "TransitWebBundle:Home:index.html.twig" %}
+
+{% block content %}
+  <h2>{{ "Deployments" }}</h2>
+
+  <a class="button" href="{{ path('transit_deployment_create', { id: deployment.project.id }) }}">{{ "Create" }}</a>
+
+  <hr />
+
+  {% if deployments|length %}
+    <table>
+      {% for deployment in deployments %}
+      <tr>
+        <td>{{ deployment.id }}</td>
+        <td>{{ deployment.name }}</td>
+        <td>{{ deployment.repositoryUrl }}</td>
+        <td>{{ deployment.status }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    {{ "No deployments have been created." }}
+  {% endif %}
+{% endblock content %}

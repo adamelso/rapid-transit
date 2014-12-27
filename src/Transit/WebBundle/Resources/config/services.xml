@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+                               http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="transit.crypt.rsa" class="Crypt_RSA" />
+
+        <service id="transit.ssh.keygen" class="Transit\WebBundle\Ssh\Keygen">
+            <argument type="service" id="transit.crypt.rsa" />
+        </service>
+
+        <service id="transit.hook.payload_signer" class="Transit\WebBundle\Hook\PayloadSigner">
+            <argument>%secret%</argument>
+        </service>
+
+        <!-- Listeners -->
+
+        <!-- @todo convert to listener -->
+        <service id="transit.event_subscriber.generate_ssh_keys" class="Transit\WebBundle\EventListener\GenerateSshKeysSubscriber">
+            <tag name="doctrine_mongodb.odm.event_subscriber" />
+            <argument type="service" id="transit.ssh.keygen" />
+        </service>
+
+        <service id="transit.event_listener.blameable" class="Transit\WebBundle\EventListener\BlameableListener">
+            <tag name="doctrine_mongodb.odm.event_listener" event="prePersist" />
+            <argument type="service" id="security.token_storage" />
+        </service>
+
+        <service id="transit.event_listener.execute_deployment" class="Transit\WebBundle\EventListener\ExecuteDeploymentListener">
+            <tag name="kernel.event_listener" event="kernel.terminate" method="onKernelTerminate" />
+            <argument type="service" id="transit.repository.project" />
+            <argument type="service" id="filesystem" />
+            <argument type="service" id="logger" />
+            <argument>%kernel.root_dir%</argument>
+        </service>
+
+        <!-- Form Types -->
+
+        <service id="transit.form.type.ssh_key_pair" class="%transit.form.type.ssh_key_pair.class%">
+            <argument>%transit.model.ssh_key_pair.class%</argument>
+            <argument>%transit.validation_group.ssh_key_pair%</argument>
+            <tag name="form.type" alias="transit_ssh_key_pair" />
+        </service>
+
+        <service id="transit.form.type.project" class="%transit.form.type.project.class%">
+            <argument>%transit.model.project.class%</argument>
+            <argument>%transit.validation_group.project%</argument>
+            <tag name="form.type" alias="transit_project" />
+        </service>
+
+        <service id="transit.form.type.deployment" class="%transit.form.type.deployment.class%">
+            <argument>%transit.model.deployment.class%</argument>
+            <argument>%transit.validation_group.deployment%</argument>
+            <tag name="form.type" alias="transit_deployment" />
+        </service>
+
+    </services>
+
+</container>

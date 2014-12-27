@@ -1,0 +1,41 @@
+default:
+  extensions:
+    Behat\MinkExtension:
+      base_url: 'http://dev.rapidtransit.io/app_test.php/'
+      selenium2:
+        wd_host: http://127.0.0.1:4444/wd/hub
+      default_session: selenium2
+      #files_path: 'assets/images'
+
+    Behat\Symfony2Extension:
+      kernel:
+        env: test
+        debug: true
+
+    Cjm\Behat\StepThroughExtension: ~
+
+  suites:
+    core:
+      contexts:
+        - Behat\MinkExtension\Context\MinkContext
+      filters: { tags: @core }
+
+    localization:
+      contexts:
+        - Behat\MinkExtension\Context\MinkContext
+        - Ntreg\Context\LocalizationContext
+      filters: { tags: @localization }
+
+    login:
+       contexts:
+         - Behat\MinkExtension\Context\MinkContext
+         - Ntreg\Context\LoginContext
+       filters: { tags: @users }
+
+ci:
+  extensions:
+    Behat\MinkExtension:
+      selenium2:
+        wd_host: http://127.0.0.2:4444/wd/hub
+      base_url: 'http://test.ntreg.com/app_test.php/'
+      default_session: selenium2

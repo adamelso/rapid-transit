@@ -1,0 +1,23 @@
+{% extends "TransitWebBundle:Home:index.html.twig" %}
+
+{% block content %}
+  <h2>{{ "Service Intregration Hooks" }}</h2>
+
+  <a class="button" href="{{ path('transit_hook_create') }}">{{ "Create" }}</a>
+
+  <hr />
+
+  {% if hooks|length %}
+    <table>
+      {% for hook in hooks %}
+        <tr>
+          <td>{{ hook.id }}</td>
+          <td>{{ hook.name }}</td>
+          <td>{{ hook.url }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    {{ "No hooks have been created." }}
+  {% endif %}
+{% endblock content %}

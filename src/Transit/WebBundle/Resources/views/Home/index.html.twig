@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Transit</title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/normalize.min.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/modernizr.js"></script>
+</head>
+<body>
+
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="{{ path('transit_web_homepage') }}">Rapid Transit</a></h1>
+    </li>
+    <li class="toggle-topbar menu-icon">
+      <a href="#"><span>Menu</span></a>
+    </li>
+  </ul>
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <li class="has-dropdown">
+          <a href="#">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} <img src="{{ gravatar(app.user.emailCanonical, 38) }}" /></a>
+
+          <ul class="dropdown">
+            <li>
+              <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      {% else %}
+        <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+      {% endif %}
+
+    </ul>
+
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li><a href="{{ path('transit_ssh_key_pair_index') }}">SSH Key Pairs</a></li>
+      <li><a href="{{ path('transit_project_index') }}">Projects</a></li>
+    </ul>
+  </section>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="small-12 columns">
+      {% block content %}
+        <h2>{{ "Welcome to Rapid Transit" }}</h2>
+
+      {% endblock content %}
+    </div>
+  </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
+<script>
+  $(function() {
+    $(document).foundation();
+  });
+</script>
+
+</body>
+</html>

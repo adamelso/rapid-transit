@@ -1,0 +1,18 @@
+{% extends "TransitWebBundle:Home:index.html.twig" %}
+
+{% block content %}
+  <h2>{{ "Projects" }}</h2>
+
+  <a class="button" href="{{ path('transit_project_create') }}">{{ "Create" }}</a>
+
+  <hr />
+  {% if projects|length %}
+    <ul class="side-nav">
+      {% for project in projects %}
+        <li><a href="{{ path('transit_project_show', { id: project.id }) }}">{{ project.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    {{ "No projects have been created." }}
+  {% endif %}
+{% endblock content %}

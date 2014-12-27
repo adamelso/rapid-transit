@@ -1,0 +1,140 @@
+transit_web_homepage:
+    path:     /
+    defaults: { _controller: TransitWebBundle:Home:index }
+
+transit_github_hook:
+    path: /github-hook
+    methods: [POST]
+    defaults: { _controller: TransitWebBundle:Hook:github }
+
+# ./routing/ssh_key_pair.yml
+
+transit_ssh_key_pair_index:
+    path: /ssh-key-pair
+    methods: [GET]
+    defaults:
+        _controller: transit.controller.ssh_key_pair:indexAction
+
+transit_ssh_key_pair_create:
+    path: /ssh-key-pair/new
+    methods: [GET, POST]
+    defaults:
+        _controller: transit.controller.ssh_key_pair:createAction
+        _sylius:
+            redirect: transit_ssh_key_pair_show
+
+transit_ssh_key_pair_show:
+    path: /ssh-key-pair/{id}
+    methods: [GET]
+    defaults:
+        _controller: transit.controller.ssh_key_pair:showAction
+
+transit_ssh_key_pair_update:
+    path: /ssh-key-pair/{id}/edit
+    methods: [GET, PUT, POST]
+    defaults:
+        _controller: transit.controller.ssh_key_pair:updateAction
+        _sylius:
+            redirect: transit_ssh_key_pair_show
+
+# ./routing/project.yml
+
+transit_project_index:
+    path: /project
+    methods: [GET]
+    defaults:
+        _controller: transit.controller.project:indexAction
+
+transit_project_create:
+    path: /project/new
+    methods: [GET, POST]
+    defaults:
+        _controller: transit.controller.project:createAction
+        _sylius:
+            redirect: transit_project_show
+
+transit_project_show:
+    path: /project/{id}
+    methods: [GET]
+    defaults:
+        _controller: transit.controller.project:showAction
+
+transit_project_update:
+    path: /project/{id}/edit
+    methods: [GET, PUT, POST]
+    defaults:
+        _controller: transit.controller.project:updateAction
+        _sylius:
+            redirect: transit_project_show
+
+
+
+# ./routing/deployment.yml
+
+transit_deployment_index:
+    path: /project/{projectId}/deployment
+    methods: [GET]
+    defaults:
+        _controller: transit.controller.deployment:indexAction
+        _sylius:
+            criteria:
+                project: $projectId
+
+
+transit_deployment_create:
+    path: /project/{projectId}/deployment/new
+    methods: [GET, POST]
+    defaults:
+        _controller: transit.controller.deployment:createAction
+        _sylius:
+            redirect: transit_deployment_show
+            factory:
+                method: createNewWithProject
+                arguments: [ $projectId ]
+
+
+transit_deployment_show:
+    path: /deployment/{id}
+    methods: [GET]
+    defaults:
+        _controller: transit.controller.deployment:showAction
+
+transit_deployment_update:
+    path: /deployment/{id}/edit
+    methods: [GET, PUT, POST]
+    defaults:
+        _controller: transit.controller.deployment:updateAction
+        _sylius:
+            redirect: transit_deployment_show
+
+
+# ./routing/hook.yml
+
+transit_hook_index:
+    path: /hook
+    methods: [GET]
+    defaults:
+        _controller: transit.controller.hook:indexAction
+
+transit_hook_create:
+    path: /hook/new
+    methods: [GET, POST]
+    defaults:
+        _controller: transit.controller.hook:createAction
+        _sylius:
+            redirect: transit_hook_show
+
+transit_hook_show:
+    path: /hook/{id}
+    methods: [GET]
+    defaults:
+        _controller: transit.controller.hook:showAction
+
+transit_hook_update:
+    path: /hook/{id}/edit
+    methods: [GET, PUT, POST]
+    defaults:
+        _controller: transit.controller.hook:updateAction
+        _sylius:
+            redirect: transit_hook_show
+
