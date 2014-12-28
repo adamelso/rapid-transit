@@ -19,7 +19,7 @@ sudo: false
 
 before_install:
   - composer selfupdate
-  - pecl -q install -f mongo && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  - yes | pecl -q install -f mongo && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - cp app/config/parameters.yml.dist app/config/parameters.yml
 
 install:
