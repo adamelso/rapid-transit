@@ -1,7 +1,7 @@
 default:
   extensions:
     Behat\MinkExtension:
-      base_url: 'http://dev.rapidtransit.io/app_test.php/'
+      base_url: 'http://127.0.0.1:8000/app_test.php/'
       selenium2:
         wd_host: http://127.0.0.1:4444/wd/hub
       default_session: selenium2
@@ -31,5 +31,5 @@ ci:
     Behat\MinkExtension:
       selenium2:
         wd_host: http://127.0.0.2:4444/wd/hub
-      base_url: 'http://dev.rapidtransit.io/app_test.php/'
+      base_url: 'http://127.0.0.1:8000/app_test.php/'
       default_session: selenium2
