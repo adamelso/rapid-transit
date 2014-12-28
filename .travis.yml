@@ -25,6 +25,7 @@ before_install:
 install:
   - COMPOSER_ROOT_VERSION=dev-master composer $COMPOSER_OPTIONS
   #- bundle install --deployment
+  - npm install -g bower
   - bower install
   #- bundle exec compass compile
   - php bin/console doctrine:mongodb:schema:create --index
