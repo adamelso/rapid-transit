@@ -12,26 +12,56 @@ security:
 
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js|components|assets)/
             security: false
 
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
-                csrf_provider: form.csrf_provider
-            logout:       true
-            anonymous:    true
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                failure_path: fos_user_security_login
+                default_target_path: /
+                use_forward: false
+                use_referer: true
+            remember_me:
+                key: "%secret%"
+                name: rapid_transit_remember_me
+                lifetime: 31536000
+                always_remember_me: true
+                remember_me_parameter: _remember_me
+            logout: { path: fos_user_security_logout }
+            anonymous: true
+
+            oauth:
+                login_path:   "/%locale%/auth/login"
+                failure_path: "/%locale%/auth/login"
+                resource_owners:
+                    github:   "/login/check-github"
+
+                oauth_user_provider:
+                    service: transit.user.provider
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/\w\w/auth/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/\w\w/connect, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/\w\w/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/\w\w/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/github-hook, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, role: ROLE_USER }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/\w\w/admin, role: ROLE_ADMIN }
 
 fos_user:
     db_driver: mongodb
     firewall_name: main
     user_class: Transit\WebBundle\Model\UserAccount
+
+hwi_oauth:
+    firewall_name: main
+    use_referer: true
+    resource_owners:
+        github:
+            type:          github
+            client_id:     "%github_client_id%"
+            client_secret: "%github_client_secret%"

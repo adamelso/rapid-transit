@@ -19,13 +19,17 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 
             new Transit\WebBundle\TransitWebBundle(),
+            new Transit\UserBundle\TransitUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

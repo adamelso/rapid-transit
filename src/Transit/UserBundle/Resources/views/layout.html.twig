@@ -1,0 +1,20 @@
+{% extends 'TransitWebBundle:Home:index.html.twig' %}
+
+{% block content %}
+  <div>
+    {% for type, messages in app.session.flashbag.all() %}
+      {% for key, message in messages %}
+        <div class="flash-{{ type }}">
+          {{ message|trans({}, 'FOSUserBundle') }}
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+  <div>
+    <div class="row">
+      <div class="large-12 columns">
+        {% block fos_user_content %}{% endblock fos_user_content %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

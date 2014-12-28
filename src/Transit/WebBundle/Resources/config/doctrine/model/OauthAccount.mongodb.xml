@@ -5,13 +5,15 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <!-- Cannot use mapped-superclass, Sylius Resource does not convert it into a document, maybe a bug? -->
-    <document name="Transit\WebBundle\Model\UserAccount" collection="TransitUserAccount">
+    <document name="Transit\WebBundle\Model\OauthAccount" collection="TransitOauthAccount">
 
         <field fieldName="id" id="true" />
 
-        <reference-many field="projects" fieldName="projects" target-document="Project" mapped-by="owner" />
-        <reference-many field="oauthAccounts" fieldName="oauthAccounts" target-document="OauthAccount" mapped-by="userAccount" />
+        <field fieldName="identifier" name="identifier" type="string" />
+        <field fieldName="provider" name="provider" type="string" />
+        <field fieldName="accessToken" name="accessToken" type="string" />
+
+        <reference-one field="userAccount" fieldName="userAccount" target-document="UserAccount" inversed-by="oauthAccounts" />
 
     </document>
 </doctrine-mongo-mapping>

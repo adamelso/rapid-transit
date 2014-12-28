@@ -1,0 +1,15 @@
+doctrine_mongodb:
+    connections:
+        default:
+            server: "%mongodb_server%"
+            options: {}
+
+    default_database: "%mongodb_database%_%kernel.environment%"
+
+    document_managers:
+        default:
+            auto_mapping: true
+
+services:
+    doctrine:
+        alias: doctrine_mongodb

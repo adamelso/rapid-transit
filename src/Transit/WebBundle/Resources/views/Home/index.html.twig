@@ -41,11 +41,13 @@
 
     </ul>
 
-    <!-- Left Nav Section -->
-    <ul class="left">
-      <li><a href="{{ path('transit_ssh_key_pair_index') }}">SSH Key Pairs</a></li>
-      <li><a href="{{ path('transit_project_index') }}">Projects</a></li>
-    </ul>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li><a href="{{ path('transit_ssh_key_pair_index') }}">SSH Key Pairs</a></li>
+        <li><a href="{{ path('transit_project_index') }}">Projects</a></li>
+      </ul>
+    {% endif %}
   </section>
 </nav>
 

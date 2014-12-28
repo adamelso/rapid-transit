@@ -22,6 +22,11 @@ class UserAccount extends User
     protected $projects;
 
     /**
+     * @var OauthAccount[]|Collection
+     */
+    protected $oauthAccounts;
+
+    /**
      * {@inheritdoc}
      */
     public function __construct()
@@ -29,6 +34,7 @@ class UserAccount extends User
         parent::__construct();
 
         $this->projects = new ArrayCollection();
+        $this->oauthAccounts = new ArrayCollection();
     }
 
     /**
@@ -62,4 +68,38 @@ class UserAccount extends User
 
         return $this;
     }
+
+    /**
+     * @return OauthAccount[]|Collection
+     */
+    public function getOauthAccounts()
+    {
+        return $this->oauthAccounts;
+    }
+
+    /**
+     * @param OauthAccount $oauthAccount
+     *
+     * @return $this
+     */
+    public function addOauthAccount(OauthAccount $oauthAccount)
+    {
+        $this->oauthAccounts[] = $oauthAccount;
+
+        return $this;
+    }
+
+    /**
+     * @param OauthAccount $oauthAccount
+     *
+     * @return $this
+     */
+    public function removeOauthAccount(OauthAccount $oauthAccount)
+    {
+        $this->oauthAccounts->removeElement($oauthAccount);
+
+        return $this;
+    }
+
+
 }
