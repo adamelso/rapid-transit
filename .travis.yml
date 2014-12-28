@@ -1,0 +1,48 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+  # - hhvm-nightly # Consider installing https://github.com/10gen-labs/mongo-hhvm-driver
+
+matrix:
+  fast_finish: true
+
+services:
+  - mongodb
+
+env:
+  - COMPOSER_OPTIONS='install --prefer-source'
+
+sudo: false
+
+before_install:
+  - composer selfupdate
+
+install:
+  - COMPOSER_ROOT_VERSION=dev-master composer $COMPOSER_OPTIONS
+  #- bundle install --deployment
+  - bower install
+  #- bundle exec compass compile
+  - php bin/console doctrine:mongodb:schema:create --index
+  - php bin/console server:start
+
+before_script:
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar -Oselenium-server-standalone.jar
+  - java -jar selenium-server-standalone.jar > /dev/null 2>&1 &
+  - php bin/console cache:warmup --env=test
+
+script:
+  - php bin/phpspec run -fpretty
+  - php bin/behat -fpretty
+
+after_script:
+  - php bin/console server:stop
+  - ps ax o'pid command' | grep selenium-server | grep -v grep | awk '{print $1}' | tr "\n" ' ' | xargs kill -9 &> /dev/null
+
+cache:
+  directories:
+    - $HOME/.composer
+    - $HOME/.cache # bower
