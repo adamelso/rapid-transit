@@ -14,6 +14,8 @@ services:
 
 env:
   - COMPOSER_OPTIONS='install --prefer-source'
+  - SELENIUM_VERSION='2.43'
+  - SELENIUM_VERSION_PATCH='1'
 
 sudo: false
 
@@ -32,7 +34,7 @@ install:
   - php bin/console server:start
 
 before_script:
-  - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar -Oselenium-server-standalone.jar
+  - wget http://selenium-release.storage.googleapis.com/${SELENIUM_VERSION}/selenium-server-standalone-${SELENIUM_VERSION}.${SELENIUM_VERSION_PATCH}.jar -Oselenium-server-standalone.jar
   - java -jar selenium-server-standalone.jar > /dev/null 2>&1 &
   - php bin/console cache:warmup --env=test
 
