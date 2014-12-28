@@ -52,7 +52,8 @@
         "behat/mink-selenium2-driver":              "*",
         "behat/symfony2-extension":                 "*",
         "ciaranmcnulty/behat-stepthroughextension": "dev-master",
-        "fabpot/php-cs-fixer":                      "@stable"
+        "fabpot/php-cs-fixer":                      "@stable",
+        "fzaninotto/faker":                         "1.4.*@dev"
     },
 
     "scripts": {

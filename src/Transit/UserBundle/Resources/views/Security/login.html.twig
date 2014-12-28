@@ -1,0 +1,68 @@
+{% extends "TransitUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+
+  <div>
+    <div class="row">
+      <div class="large-12 columns">
+        {% if error %}
+          <div data-alert class="alert-box alert">
+            {{ error.messageKey|trans(error.messageData, 'security')|trans }}
+            <a href="#" class="close">&times;</a>
+          </div>
+        {% endif %}
+      </div>
+
+
+      <div class="medium-6 columns">
+        <h2>{{ "Sign in with an existing account provider" }}</h2>
+        <ul class="authentication-providers small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          {%- for owner in hwi_oauth_resource_owners() -%}
+            <li class="oauth-login-{{ owner }}">
+              <a href="{{ hwi_oauth_login_url(owner) }}">
+                {% if owner == 'google' %}
+                  <i class="fi-social-google-plus"></i>
+                {% else %}
+                  <i class="fi-social-{{ owner }}"></i>
+                {% endif %}
+                <br />
+                {{ owner|upper|trans({}, 'HWIOAuthBundle') }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="medium-6 columns">
+        <h2>{{ "Sign in with your account" }}</h2>
+
+        <br />
+
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+          <label for="username">{{ 'security.login.username'|trans }}</label>
+          <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+          <label for="password">{{ 'security.login.password'|trans }}</label>
+          <input type="password" id="password" name="_password" required="required" />
+
+          <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+          <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+          <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="button" />
+
+        </form>
+      </div>
+
+      <hr />
+
+      <div class="large-12 columns">
+        <h2>{{ "Don't have an account?" }}</h2>
+        <a class="button" href="{{ path('fos_user_registration_register') }}">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock fos_user_content %}

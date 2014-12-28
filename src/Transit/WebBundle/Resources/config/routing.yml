@@ -6,6 +6,7 @@ transit_github_hook:
     path: /github-hook
     methods: [POST]
     defaults: { _controller: TransitWebBundle:Hook:github }
+    options: { i18n: false }
 
 # ./routing/ssh_key_pair.yml
 
