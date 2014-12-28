@@ -1,0 +1,17 @@
+$fi-path: "../components/foundation-icon-fonts";
+
+@import "settings";
+@import "foundation";
+@import "foundation-icons";
+
+.authentication-providers {
+  li {
+    border: 1px solid #c0c0c0;
+    margin-bottom: 10px;
+    text-align: center;
+
+    i {
+      font-size: rem-calc(72);
+    }
+  }
+}

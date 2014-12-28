@@ -16,3 +16,13 @@
 .idea
 
 /var/repositories/*
+!var/repositories/.gitkeep
+/web/components/
+/web/assets/
+.bundle/
+.sass-cache/
+
+# Behat Symfony2 extension does not populate cache in Symfony 3 directory structure.
+# See https://github.com/Behat/Symfony2Extension/issues/64
+/app/cache/*
+/app/logs/*
