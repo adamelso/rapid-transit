@@ -1,6 +1,8 @@
 Rapid Transit
 =============
 
+[![Build Status](https://travis-ci.org/adamelso/rapid-transit.svg)](https://travis-ci.org/adamelso/rapid-transit)
+
 Deployment web app built on top of Symfony 2.6. Not continuous yet, but that's the plan. ;)
 
 _Rapid Transit_ is the name for the web-app.
