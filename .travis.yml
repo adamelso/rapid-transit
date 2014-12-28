@@ -30,6 +30,7 @@ install:
 
 before_script:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - pecl -q install -f mongo-${MONGO_VERSION} && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar -Oselenium-server-standalone.jar
   - java -jar selenium-server-standalone.jar > /dev/null 2>&1 &
   - php bin/console cache:warmup --env=test
