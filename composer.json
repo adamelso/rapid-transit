@@ -8,7 +8,7 @@
         "psr-4": {
             "": "src/",
             "SymfonyStandard\\": "app/",
-            "Transit\\": "features/Transit/"
+            "Transit\\": "features/bootstrap/Transit/"
         }
     },
 
