@@ -25,7 +25,7 @@ Feature: Sign in to the app
       | Password | wrongpassword    |
     And I press "_submit"
     Then I should be on the Login page
-    And I should see "the username or password you entered is incorrect"
+    And I should see "Invalid credentials."
 
   Scenario: Trying to login without credentials
     Given I am on the "Login" page
@@ -39,4 +39,4 @@ Feature: Sign in to the app
       | Password | tR4n5it            |
     And I press "Login"
     Then I should be on the Login page
-    And I should see "the username or password you entered is incorrect"
+    And I should see "Invalid credentials."

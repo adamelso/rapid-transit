@@ -93,7 +93,7 @@ class LoginContext extends SymfonyContext
      */
     public function assertLoginPage()
     {
-        $this->assertSession()->addressMatches($this->fixStepArgument('~\/([a-z]{2})\/login~'));
+        $this->assertSession()->addressMatches($this->fixStepArgument('~\/([a-z]{2})\/auth/login~'));
     }
 
     /**
