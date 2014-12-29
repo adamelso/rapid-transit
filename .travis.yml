@@ -32,9 +32,11 @@ install:
   - php bin/console server:start
 
 before_script:
-  - wget http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar -Oselenium-server-standalone.jar
-  - java -jar selenium-server-standalone.jar > /dev/null 2>&1 &
-  - php bin/console cache:warmup --env=test
+  - "sh -e /etc/init.d/xvfb start"
+  - "export DISPLAY=:99.0"
+  - "wget http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar -Oselenium-server-standalone.jar"
+  - "java -jar selenium-server-standalone.jar > /dev/null 2>&1 &"
+  - "php bin/console cache:warmup --env=test"
 
 script:
   - php bin/phpspec run -fpretty
