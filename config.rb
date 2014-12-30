@@ -2,11 +2,11 @@ add_import_path "web/components/foundation/scss"
 add_import_path "web/components/foundation-icon-fonts"
 
 http_path = "/"
-css_dir = "web/stylesheets"
+css_dir = "web/assets/stylesheets"
 sass_dir = "assets/scss"
-images_dir = "web/images"
-javascripts_dir = "web/js"
-fonts_dir = "web/fonts"
+images_dir = "web/assets/images"
+javascripts_dir = "web/assets/js"
+fonts_dir = "web/assets/fonts"
 
 output_style = :compact
 
