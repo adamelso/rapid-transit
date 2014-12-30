@@ -43,11 +43,13 @@ security:
                 oauth_user_provider:
                     service: transit.user.provider
 
+
     access_control:
         - { path: ^/\w\w/auth/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/\w\w/connect, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/\w\w/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/\w\w/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/\w\w/oauth, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/github-hook, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, role: ROLE_USER }
         - { path: ^/\w\w/admin, role: ROLE_ADMIN }
