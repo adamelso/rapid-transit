@@ -2,6 +2,8 @@ Rapid Transit
 =============
 
 [![Build Status](https://travis-ci.org/adamelso/rapid-transit.svg)](https://travis-ci.org/adamelso/rapid-transit)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/adamelso/rapid-transit/master.svg?style=flat)](https://scrutinizer-ci.com/g/adamelso/rapid-transit/?branch=master)
+
 
 Deployment web app built on top of Symfony 2.6. Not continuous yet, but that's the plan. ;)
 
