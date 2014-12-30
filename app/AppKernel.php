@@ -70,4 +70,20 @@ class AppKernel extends Kernel
     {
         return 'rapidTransit';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCacheDir()
+    {
+        return $this->rootDir.'/../var/cache/'.$this->environment;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLogDir()
+    {
+        return $this->rootDir.'/../var/logs';
+    }
 }
