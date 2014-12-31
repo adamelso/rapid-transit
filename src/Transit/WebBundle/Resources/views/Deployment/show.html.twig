@@ -8,4 +8,10 @@
 
   <p>{{ deployment.project }}</p>
 
+    <pre>
+        {% for record in deployment.logs %}
+            {{ record.message }}
+        {% endfor %}
+    </pre>
+
 {% endblock content %}

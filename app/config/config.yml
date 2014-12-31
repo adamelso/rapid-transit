@@ -39,6 +39,19 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+monolog:
+    channels:
+        - deployment
+    handlers:
+        deployment:
+            type: mongo
+            level: debug
+            channels: [deployment]
+            mongo:
+                id: mongo
+                database: "%mongodb_database%_%kernel.environment%"
+                collection: TransitDeploymentLog
+
 # Additional Bundles
 
 sylius_resource:

@@ -2,7 +2,9 @@
 
 namespace Transit\WebBundle\Repository;
 
+use Doctrine\Common\Collections\Criteria;
 use Sylius\Bundle\ResourceBundle\Doctrine\ODM\MongoDB\DocumentRepository;
+use Symfony\Component\VarDumper\VarDumper;
 use Transit\WebBundle\Model\Deployment;
 use Transit\WebBundle\Model\Project;
 
@@ -24,5 +26,25 @@ class DeploymentRepository extends DocumentRepository
         $deployment->setProject($project);
 
         return $deployment;
+    }
+
+    /**
+     * @param Project $project
+     *
+     * @return array|null|object
+     */
+    public function findLastDeploymentNumberForProject(Project $project)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb
+            ->field('project')->equals(new \MongoId($project->getId()))
+            ->sort('number', Criteria::DESC)
+            ->limit(1);
+
+        $c=  $qb->getQuery()->getSingleResult();
+
+        VarDumper::dump($qb->getQuery()->getQuery());
+
+        return $c->getNumber();
     }
 }

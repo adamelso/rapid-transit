@@ -16,6 +16,7 @@ services:
         factory_method: getConnection
         calls:
            - [initialize, []]
+
     mongo:
         class: Mongo
         factory_service: mongodb.connection

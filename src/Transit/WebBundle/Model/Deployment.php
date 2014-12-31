@@ -18,6 +18,11 @@ class Deployment
     protected $id;
 
     /**
+     * @var int
+     */
+    protected $number;
+
+    /**
      * @var string
      */
     protected $commit;
@@ -36,6 +41,21 @@ class Deployment
      * @var Project
      */
     protected $project;
+
+    /**
+     * Read-only.
+     *
+     * @var DeploymentLog[]
+     */
+    protected $logs;
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getProject()->getName();
+    }
 
     /**
      * @return mixed
@@ -131,5 +151,29 @@ class Deployment
     public function setProject(Project $project)
     {
         $this->project = $project;
+    }
+
+    /**
+     * @return DeploymentLog[]
+     */
+    public function getLogs()
+    {
+        return $this->logs;
+    }
+
+    /**
+     * @param int $number
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumber()
+    {
+        return $this->number;
     }
 }

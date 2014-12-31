@@ -87,9 +87,9 @@ class ExecuteDeploymentListener
         $manager->persist($deployment);
         $manager->flush();
 
-        $this->logger->info('Executing as user ' . `whoami`);
+        $this->logger->debug('Executing as user ' . get_current_user(), ['deployment' => $deployment]);
 
-        $this->logger->info('Cloning project ' . $name);
+        $this->logger->debug('Cloning project ' . $name, ['deployment' => $deployment]);
 
         $repositoriesDir = implode(DIRECTORY_SEPARATOR, [
             $this->kernelRootDir,
@@ -118,7 +118,7 @@ class ExecuteDeploymentListener
             return;
         }
 
-        $this->logger->info('Deploying project ' . $name);
+        $this->logger->info('Deploying project ' . $name, ['deployment' => $deployment]);
 
         /**
          * @todo Check for Gemfile.lock
@@ -161,10 +161,11 @@ class ExecuteDeploymentListener
      */
     private function markDeploymentAsFailure(Deployment $deployment, $name, $err, $manager)
     {
-        $message = sprintf('Failed to deploy project `%s`', $name);
-        $message .= $err;
+        $message = sprintf('Failed to deploy project `%s`.', $name);
 
-        $this->logger->warning($message);
+        $this->logger->warning($message, ['deployment' => $deployment]);
+        $this->logger->warning($err, ['deployment' => $deployment]);
+
         $deployment->setStatus(Deployment::FAILED);
 
         $manager->persist($deployment);

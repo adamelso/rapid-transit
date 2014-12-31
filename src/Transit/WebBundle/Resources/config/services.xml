@@ -16,6 +16,10 @@
             <argument>%secret%</argument>
         </service>
 
+        <service id="transist.monolog.processor.deployment" class="Transit\WebBundle\Monolog\Processor\DeploymentProcessor">
+            <tag name="monolog.processor" channel="deployment" />
+        </service>
+
         <!-- Listeners -->
 
         <!-- @todo convert to listener -->
@@ -29,11 +33,15 @@
             <argument type="service" id="security.token_storage" />
         </service>
 
+        <service id="transit.event_listener.increment_deployment_number" class="Transit\WebBundle\EventListener\IncrementDeploymentNumberListener">
+            <tag name="doctrine_mongodb.odm.event_listener" event="prePersist" />
+        </service>
+
         <service id="transit.event_listener.execute_deployment" class="Transit\WebBundle\EventListener\ExecuteDeploymentListener">
             <tag name="kernel.event_listener" event="kernel.terminate" method="onKernelTerminate" />
             <argument type="service" id="transit.repository.project" />
             <argument type="service" id="filesystem" />
-            <argument type="service" id="logger" />
+            <argument type="service" id="monolog.logger.deployment" />
             <argument>%kernel.root_dir%</argument>
         </service>
 

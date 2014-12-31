@@ -5,17 +5,14 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <!-- Cannot use mapped-superclass, Sylius Resource does not convert it into a document, maybe a bug? -->
-    <document name="Transit\WebBundle\Model\Deployment" collection="TransitDeployment">
+    <document name="Transit\WebBundle\Model\DeploymentLog" collection="TransitDeploymentLog">
 
         <field fieldName="id" id="true" />
-        <field fieldName="number" name="number" type="int" />
         <field fieldName="commit" name="commit" type="string" />
         <field fieldName="branch" name="branch" type="string" />
         <field fieldName="status" name="status" type="string" />
-        
-        <reference-one field="project" fieldName="project" target-document="Project" inversed-by="deployments" />
-        <reference-many field="logs" fieldName="logs" target-document="DeploymentLog" mapped-by="deployment" />
+
+        <reference-one field="deployment" fieldName="deployment" target-document="Deployment" inversed-by="logs" />
 
     </document>
 </doctrine-mongo-mapping>

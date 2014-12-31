@@ -15,9 +15,10 @@
     <table>
       {% for deployment in project.deployments %}
         <tr>
-          <td>{{ deployment.id }}</td>
+          <td>{{ deployment.number }}</td>
           <td>{{ deployment.branch }}</td>
           <td>{{ deployment.status }}</td>
+          <td><a href="{{ path('transit_deployment_show', { id: deployment.id }) }}" class="button tiny radius"> &gt; </a></td>
         </tr>
       {% endfor %}
     </table>
