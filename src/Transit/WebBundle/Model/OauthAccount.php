@@ -30,6 +30,21 @@ class OauthAccount
     protected $userAccount;
 
     /**
+     * @var string
+     */
+    protected $nickname;
+
+    /**
+     * @var string
+     */
+    protected $realName;
+
+    /**
+     * @var string
+     */
+    protected $profilePicture;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -88,6 +103,14 @@ class OauthAccount
     }
 
     /**
+     * @return string
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+    /**
      * @param UserAccount $userAccount
      *
      * @return $this
@@ -105,5 +128,65 @@ class OauthAccount
     public function getUserAccount()
     {
         return $this->userAccount;
+    }
+
+    /**
+     * @param $nickname string
+     *
+     * @return $this
+     */
+    public function setNickname($nickname)
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNickname()
+    {
+        return $this->nickname;
+    }
+
+    /**
+     * @param $realName string
+     *
+     * @return $this
+     */
+    public function setRealName($realName)
+    {
+        $this->realName = $realName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRealName()
+    {
+        return $this->realName;
+    }
+
+    /**
+     * @param $profilePicture string
+     *
+     * @return $this
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
     }
 }

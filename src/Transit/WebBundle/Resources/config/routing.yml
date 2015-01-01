@@ -53,6 +53,9 @@ transit_project_create:
         _controller: transit.controller.project:createAction
         _sylius:
             redirect: transit_project_show
+            factory:
+                method: createNewFromImports
+                arguments: [ $name, $repositoryUrl ]
 
 transit_project_show:
     path: /project/{id}
@@ -68,6 +71,13 @@ transit_project_update:
         _sylius:
             redirect: transit_project_show
 
+transit_project_import:
+    path: /project/import/github
+    methods: [GET]
+    defaults:
+        _controller: transit.controller.project:importAction
+        _sylius:
+            redirect: transit_project_show
 
 
 # ./routing/deployment.yml

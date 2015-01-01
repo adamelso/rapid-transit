@@ -12,6 +12,9 @@
         <field fieldName="identifier" name="identifier" type="string" />
         <field fieldName="provider" name="provider" type="string" />
         <field fieldName="accessToken" name="accessToken" type="string" />
+        <field fieldName="nickname" name="nickname" type="string" />
+        <field fieldName="realName" name="realName" type="string" />
+        <field fieldName="profilePicture" name="profilePicture" type="string" />
 
         <reference-one field="userAccount" fieldName="userAccount" target-document="UserAccount" inversed-by="oauthAccounts" />
 

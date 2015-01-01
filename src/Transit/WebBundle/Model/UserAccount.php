@@ -101,5 +101,21 @@ class UserAccount extends User
         return $this;
     }
 
+    /**
+     * @todo If the same GitHub OAuth account is added twice to a user as a result of renewed permissions, overwrite the previous one.
+     *
+     * @return null|OauthAccount
+     */
+    public function getGithubOauthAccount()
+    {
+        $githubOauth = null;
 
+        foreach ($this->getOauthAccounts() as $oauth) {
+            if ("github" === $oauth->getProvider()) {
+                $githubOauth = $oauth;
+            }
+        }
+
+        return $githubOauth;
+    }
 }

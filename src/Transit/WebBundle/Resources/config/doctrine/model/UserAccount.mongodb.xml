@@ -11,7 +11,11 @@
         <field fieldName="id" id="true" />
 
         <reference-many field="projects" fieldName="projects" target-document="Project" mapped-by="owner" />
-        <reference-many field="oauthAccounts" fieldName="oauthAccounts" target-document="OauthAccount" mapped-by="userAccount" />
+        <reference-many field="oauthAccounts" fieldName="oauthAccounts" target-document="OauthAccount" mapped-by="userAccount">
+            <cascade>
+                <all />
+            </cascade>
+        </reference-many>
 
     </document>
 </doctrine-mongo-mapping>

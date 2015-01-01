@@ -5,8 +5,17 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
                                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="transit.version.major" type="constant">Transit\WebBundle\TransitWebBundle::TRANSIT_MAJOR_VERSION</parameter>
+        <parameter key="transit.version.minor" type="constant">Transit\WebBundle\TransitWebBundle::TRANSIT_MINOR_VERSION</parameter>
+    </parameters>
+
     <services>
+        <!-- Third-party -->
+
         <service id="transit.crypt.rsa" class="Crypt_RSA" />
+
+        <!-- Transit -->
 
         <service id="transit.ssh.keygen" class="Transit\WebBundle\Ssh\Keygen">
             <argument type="service" id="transit.crypt.rsa" />
@@ -15,6 +24,26 @@
         <service id="transit.hook.payload_signer" class="Transit\WebBundle\Hook\PayloadSigner">
             <argument>%secret%</argument>
         </service>
+
+
+        <service id="transit.client.github" class="GuzzleHttp\Client">
+            <argument type="collection">
+                <argument key="base_url">https://api.github.com</argument>
+                <argument key="headers" type="collection">
+                    <argument key="Accept">application/vnd.github.moondragon-preview+json</argument>
+                    <argument key="User-Agent">RapidTransit/%transit.version.major%.%transit.version.minor%</argument>
+                </argument>
+            </argument>
+        </service>
+
+        <service id="transit.factory.github_account" class="Transit\WebBundle\Integration\GithubAccountFactory">
+            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="transit.client.github" />
+        </service>
+
+        <service id="transit.provider.account.github" class="Transit\WebBundle\Github\GithubAccount"
+                 factory-service="transit.factory.github_account" factory-method="createWithCurrentAuthenticatedUser"
+        />
 
         <!-- Listeners -->
 
@@ -37,6 +66,11 @@
             <argument>%kernel.root_dir%</argument>
         </service>
 
+        <service id="transit.event_listener.account_not_linked_to_github" class="Transit\WebBundle\EventListener\AccountNotLinkedToGithubListener">
+            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
+            <argument type="service" id="router" />
+        </service>
+
         <!-- Form Types -->
 
         <service id="transit.form.type.ssh_key_pair" class="%transit.form.type.ssh_key_pair.class%">
@@ -56,7 +90,6 @@
             <argument>%transit.validation_group.deployment%</argument>
             <tag name="form.type" alias="transit_deployment" />
         </service>
-
     </services>
 
 </container>
