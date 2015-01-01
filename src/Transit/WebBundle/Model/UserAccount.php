@@ -84,6 +84,8 @@ class UserAccount extends User
      */
     public function addOauthAccount(OauthAccount $oauthAccount)
     {
+        $oauthAccount->setUserAccount($this);
+
         $this->oauthAccounts[] = $oauthAccount;
 
         return $this;
