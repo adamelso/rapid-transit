@@ -69,11 +69,15 @@ class UserProvider extends FOSUBUserProvider implements OAuthAwareUserProviderIn
     /**
      * @param UserResponseInterface $response
      *
-     * @return FOSUserInterface
+     * @return null|FOSUserInterface
      */
     private function findUser(UserResponseInterface $response)
     {
         $token = $this->tokenStorage->getToken();
+
+        if (null === $token) {
+            return null;
+        }
 
         if ($token->isAuthenticated()) {
             return $token->getUser();
