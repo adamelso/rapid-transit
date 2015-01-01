@@ -10,6 +10,13 @@ use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
  */
 class TransitWebBundle extends AbstractResourceBundle
 {
+    const TRANSIT_VERSION = '0.1.2-DEV';
+    const TRANSIT_VERSION_ID = '00102';
+    const TRANSIT_MAJOR_VERSION = '0';
+    const TRANSIT_MINOR_VERSION = '1';
+    const TRANSIT_RELEASE_VERSION = '2';
+    const TRANSIT_EXTRA_VERSION = 'DEV';
+
     /**
      * {@inheritdoc}
      */

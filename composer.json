@@ -33,6 +33,7 @@
         "doctrine/mongodb-odm-bundle":          "3.0.*@dev",
         "friendsofsymfony/rest-bundle":         "dev-master",
         "friendsofsymfony/user-bundle":         "dev-master",
+        "guzzlehttp/guzzle":                    "~5.0",
         "hwi/oauth-bundle":                     "dev-master",
         "jms/i18n-routing-bundle":              "dev-master",
         "jms/serializer-bundle":                "0.13",

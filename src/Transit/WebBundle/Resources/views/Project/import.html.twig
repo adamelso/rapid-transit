@@ -1,0 +1,13 @@
+{% extends "TransitWebBundle:Project:index.html.twig" %}
+
+{% block content %}
+
+  <h2>{{ "Import new project from GitHub" }}</h2>
+
+  <ul class="side-nav">
+    {% for repo in repositories %}
+      <li><a href="{{ path('transit_project_create', { name: repo.fullName, repositoryUrl: repo.sshUrl }) }}">{{ repo.fullName }}</a></li>
+    {% endfor %}
+  </ul>
+
+{% endblock content %}

@@ -8,13 +8,6 @@ use Symfony\Component\Config\Loader\LoaderInterface;
  */
 class AppKernel extends Kernel
 {
-    const RAPID_TRANSIT_VERSION = '0.1.1-DEV';
-    const RAPID_TRANSIT_VERSION_ID = '00101';
-    const RAPID_TRANSIT_MAJOR_VERSION = '0';
-    const RAPID_TRANSIT_MINOR_VERSION = '1';
-    const RAPID_TRANSIT_RELEASE_VERSION = '1';
-    const RAPID_TRANSIT_EXTRA_VERSION = 'DEV';
-
     /**
      * {@inheritdoc}
      */

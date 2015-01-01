@@ -2,12 +2,13 @@
 
 namespace Transit\UserBundle\Security;
 
-use Doctrine\Common\Persistence\ObjectRepository;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Model\UserInterface as FOSUserInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
+use Sylius\Bundle\ResourceBundle\Doctrine\ODM\MongoDB\DocumentRepository;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Transit\WebBundle\Model\OauthAccount;
 use Transit\WebBundle\Model\UserAccount;
@@ -18,18 +19,24 @@ use Transit\WebBundle\Model\UserAccount;
 class UserProvider extends FOSUBUserProvider implements OAuthAwareUserProviderInterface
 {
     /**
-     * @var ObjectRepository
+     * @var DocumentRepository
      */
     private $oauthAccountRepository;
 
     /**
-     * @param UserManagerInterface $userManager
-     * @param ObjectRepository     $oauthAccountRepository
+     * @var TokenStorageInterface
      */
-    public function __construct(UserManagerInterface $userManager, ObjectRepository $oauthAccountRepository)
+    private $tokenStorage;
+
+    /**
+     * @param UserManagerInterface $userManager
+     * @param DocumentRepository     $oauthAccountRepository
+     */
+    public function __construct(UserManagerInterface $userManager, DocumentRepository $oauthAccountRepository, TokenStorageInterface $tokenStorage)
     {
         $this->userManager = $userManager;
         $this->oauthAccountRepository = $oauthAccountRepository;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -49,13 +56,30 @@ class UserProvider extends FOSUBUserProvider implements OAuthAwareUserProviderIn
         }
 
         if (null !== $response->getEmail()) {
-            $user = $this->userManager->findUserByEmail($response->getEmail());
+            $user = $this->findUser($response);
+
             if (null !== $user) {
                 return $this->updateUserByOAuthUserResponse($user, $response);
             }
         }
 
         return $this->createUserByOAuthUserResponse($response);
+    }
+
+    /**
+     * @param UserResponseInterface $response
+     *
+     * @return FOSUserInterface
+     */
+    private function findUser(UserResponseInterface $response)
+    {
+        $token = $this->tokenStorage->getToken();
+
+        if ($token->isAuthenticated()) {
+            return $token->getUser();
+        }
+
+        return $this->userManager->findUserByEmail($response->getEmail());
     }
 
     /**
@@ -99,14 +123,16 @@ class UserProvider extends FOSUBUserProvider implements OAuthAwareUserProviderIn
     protected function updateUserByOAuthUserResponse(FOSUserInterface $user, UserResponseInterface $response)
     {
         /** @var OauthAccount $oauth */
-        $oauth = new OauthAccount(); // $this->oauthRepository->createNew();
+        $oauth = $this->oauthAccountRepository->createNew();
         $oauth->setIdentifier($response->getUsername());
         $oauth->setProvider($response->getResourceOwner()->getName());
         $oauth->setAccessToken($response->getAccessToken());
+        $oauth->setNickname($response->getNickname());
+        $oauth->setRealName($response->getRealName());
+        $oauth->setProfilePicture($response->getProfilePicture());
 
-        /* @var $user UserAccount */
+        /** @var $user UserAccount */
         $user->addOAuthAccount($oauth);
-        $oauth->setUserAccount($user);
 
         $this->userManager->updateUser($user);
 
@@ -118,7 +144,7 @@ class UserProvider extends FOSUBUserProvider implements OAuthAwareUserProviderIn
      */
     public function connect(UserInterface $user, UserResponseInterface $response)
     {
-        /* @var $user FOSUserInterface */
+        /** @var $user FOSUserInterface */
         $this->updateUserByOAuthUserResponse($user, $response);
     }
 }

@@ -12,7 +12,7 @@ use Transit\WebBundle\Model\UserAccount;
 class ProjectRepository extends DocumentRepository
 {
     /**
-     * @param mixed $user
+     * @param UserAccount $user
      *
      * @return $this
      */
@@ -22,5 +22,22 @@ class ProjectRepository extends DocumentRepository
         $project = $this->createNew();
 
         return $project->setOwner($user);
+    }
+
+    /**
+     * @param string $name
+     * @param string $repositoryUrl
+     *
+     * @return Project
+     */
+    public function createNewFromImports($name, $repositoryUrl)
+    {
+        /** @var Project $project */
+        $project = $this->createNew();
+
+        $project->setName($name);
+        $project->setRepositoryUrl($repositoryUrl);
+
+        return $project;
     }
 }

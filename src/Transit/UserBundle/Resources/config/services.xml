@@ -9,6 +9,7 @@
         <service id="transit.user.provider" class="Transit\UserBundle\Security\UserProvider">
             <argument type="service" id="fos_user.user_manager" />
             <argument type="service" id="transit.repository.oauth_account" />
+            <argument type="service" id="security.token_storage" />
         </service>
     </services>
 </container>
