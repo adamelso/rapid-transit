@@ -1,6 +1,8 @@
 Rapid Transit
 =============
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/adamelso/rapid-transit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/adamelso/rapid-transit.svg)](https://travis-ci.org/adamelso/rapid-transit)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/adamelso/rapid-transit/master.svg?style=flat)](https://scrutinizer-ci.com/g/adamelso/rapid-transit/?branch=master)
 
